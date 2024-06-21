@@ -7,6 +7,8 @@ use App\Models\Offer;
 
 class OfferService
 {
+    const PER_PAGE = 21;
+
     protected Offer $offer;
 
     private SwissHalleyApi $swissHalleyApi;
@@ -22,8 +24,19 @@ class OfferService
         return $this->swissHalleyApi->getOffersFromApi();
     }
 
-    public function getOffers(): array
+    public function getOffers(int $page = 1, int $perPage = self::PER_PAGE, string $orderBy = 'price'): array
     {
-        return $this->offer->findAll();
+        $offers = $this->offer->orderBy($orderBy)->paginate($perPage, 'default', $page);
+        $pager = $this->offer->pager;
+
+        return [
+            'offers' => $offers,
+            'pager' => [
+                'currentPage' => $pager->getCurrentPage(),
+                'totalPages' => $pager->getPageCount(),
+                'totalItems' => $pager->getTotal(),
+                'perPage' => $pager->getPerPage(),
+            ]
+        ];
     }
 }
