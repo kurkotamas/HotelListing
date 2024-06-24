@@ -24,9 +24,24 @@ class OfferService
         return $this->swissHalleyApi->getOffersFromApi();
     }
 
-    public function getOffers(int $page = 1, int $perPage = self::PER_PAGE, string $orderBy = 'price'): array
+    public function getOffers(int $page = 1, string $orderBy = 'price', array $cityIds = [], array $countryIds = [],
+      string $direction = 'asc', int $perPage = self::PER_PAGE): array
     {
-        $offers = $this->offer->orderBy($orderBy)->paginate($perPage, 'default', $page);
+        $offers = $this->offer
+            ->select('offers.*, cities.name as cityName, countries.name as countryName')
+            ->join('cities', 'cities.cityId = offers.cityId')
+            ->join('countries', 'countries.countryId = offers.countryId')
+            ->orderBy($orderBy, $direction);
+
+            if ($cityIds) {
+                $offers->orWhereIn('offers.cityId', $cityIds);
+            }
+
+            if ($countryIds) {
+                $offers->orWhereIn('offers.countryId', $countryIds);
+            }
+
+        $offers = $offers->paginate($perPage, 'default', $page);
         $pager = $this->offer->pager;
 
         return [

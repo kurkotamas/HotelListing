@@ -19,6 +19,13 @@ class GetOffersApi extends ResourceController
     public function index()
     {
         $page = $this->request->getVar('page') ?? 1;
-        return $this->respond($this->offerService->getOffers($page));
+        $cityIds = $this->request->getVar('cityIds');
+        $cityIds = $cityIds ? array_map('intval', explode(',', $cityIds)) : [];
+        $countryIds = $this->request->getVar('countryIds');
+        $countryIds = $countryIds ? array_map('intval', explode(',', $countryIds)) : [];
+        $orderBy = $this->request->getVar('order_by') ?? 'price';
+        $direction = $this->request->getVar('direction') ?? 'asc';
+
+        return $this->respond($this->offerService->getOffers($page, $orderBy, $cityIds, $countryIds, $direction));
     }
 }

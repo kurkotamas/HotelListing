@@ -15,7 +15,7 @@ class CreateOffersTable extends Migration
                 'auto_increment' => true,
             ],
             'hotelId' => [
-                'type'           => 'INT',
+                'type' => 'INT',
             ],
             'name' => [
                 'type'       => 'VARCHAR',
@@ -24,19 +24,14 @@ class CreateOffersTable extends Migration
             'price' => [
                 'type' => 'FLOAT',
             ],
+            'roundedPrice' => [
+                'type' => 'INT',
+            ],
             'countryId' => [
                 'type' => 'INT',
             ],
-            'country' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '100',
-            ],
             'cityId' => [
                 'type' => 'INT',
-            ],
-            'city' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '100',
             ],
             'image' => [
                 'type'       => 'VARCHAR',
@@ -48,6 +43,8 @@ class CreateOffersTable extends Migration
             ],
         ]);
         $this->forge->addKey('offerId', true);
+        $this->forge->addForeignKey('cityId', 'cities', 'cityId', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('countryId', 'countries', 'countryId', 'CASCADE', 'CASCADE');
         $this->forge->createTable('offers');
     }
 
