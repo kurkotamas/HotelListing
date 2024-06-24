@@ -1,13 +1,13 @@
 ## To deploy this app:
 
-git clone https://github.com/kurkotamas/HotelListing.git
-cd HotelListing
-npm install
-npm run build
-composer update
-php spark migrate
-php spark serve
-php spark offers:fetch
+- git clone https://github.com/kurkotamas/HotelListing.git
+- cd HotelListing
+- npm install
+- npm run build
+- composer update
+- php spark migrate
+- php spark serve
+- php spark offers:fetch
 
 ![img.png](img.png)
 
