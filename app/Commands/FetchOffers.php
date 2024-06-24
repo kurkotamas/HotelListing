@@ -9,7 +9,8 @@ use App\Services\OfferService;
 use CodeIgniter\CLI\BaseCommand;
 
 /**
- * php spark offers:fetch
+ * command to run: php spark offers:fetch
+ * This cronjob needs to be scheduled to run every 20 minutes.
  */
 class FetchOffers extends BaseCommand
 {
