@@ -10,15 +10,15 @@ class CreateOffersTable extends Migration
     {
         $this->forge->addField([
             'offerId' => [
-                'type'           => 'INT',
-                'unsigned'       => true,
+                'type' => 'INT',
+                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'hotelId' => [
                 'type' => 'INT',
             ],
             'name' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => '100',
             ],
             'price' => [
@@ -29,13 +29,16 @@ class CreateOffersTable extends Migration
             ],
             'countryId' => [
                 'type' => 'INT',
+                'unsigned' => true,
             ],
             'cityId' => [
                 'type' => 'INT',
+                'unsigned' => true,
             ],
             'image' => [
-                'type'       => 'VARCHAR',
-                'default'    => null,
+                'type' => 'VARCHAR',
+                'constraint' => '200',
+                'null' => true,
             ],
             'star' => [
                 'type' => 'TINYINT',

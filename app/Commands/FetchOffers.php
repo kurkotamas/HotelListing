@@ -58,7 +58,6 @@ class FetchOffers extends BaseCommand
         }
 
         $cityModel = new City();
-        $db->query("SELECT nextval('cityId_seq')");
         foreach ($cities as $cityId => $city) {
             $cityModel->insert([
                 'cityId' => $cityId,
@@ -67,7 +66,6 @@ class FetchOffers extends BaseCommand
         }
 
         $countryModel = new Country();
-        $db->query("SELECT nextval('countryId_seq')");
         foreach ($countries as $countryId => $country) {
             $countryModel->insert([
                 'countryId' => $countryId,
